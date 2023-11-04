@@ -19,7 +19,7 @@ class Form extends Component
             $response = Http::client()->post('/candidate', $this->candidate);
         // update
         } else {
-            $response = Http::client()->put('http://localhost:8000/api/candidate/'. $this->candidate['candidate_id'], $this->candidate);
+            $response = Http::client()->put('/candidate/'. $this->candidate['candidate_id'], $this->candidate);
         }
 
         if($response->successful()){
@@ -35,16 +35,17 @@ class Form extends Component
     {
         if($id){
             $this->isEdit = true;
-            // $get = http_client()->get('candidate/'. $id)->collect();
             $get = Http::client()->get("/candidate/". $id)->collect();
-            if($get['data']){
+            if(isset($get['data'])){
                 $this->candidate = $get['data'];
+            } else {
+                abort(404);
             }
         }
     }
 
     public function render()
     {
-        return view('livewire.candidate.form');
+        return view('livewire.candidate.form')->title($this->isEdit ? 'Edit Candidate' : 'Create Candidate');
     }
 }

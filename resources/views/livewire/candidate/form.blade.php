@@ -4,10 +4,13 @@
             <span class="font-medium">{{ session('status') }}</span>
         </div>
     @endif
+    <div class="mb-6 flex justify-start">
+        <a href="{{route('index')}}" class="bg-white text-sm text-gray-700 focus:outline-none hover:bg-gray-100 px-4 py-2 rounded-lg shadow-sm">List Candidate</a>
+    </div>
     <form wire:submit.prevent="submit">
         <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <x-input label="Full Name" id="full_name" wire:model="candidate.full_name"/>
+                <x-input label="Full Name" id="full_name" wire:model="candidate.full_name" required/>
                 <div class="text-red-500 text-sm">
                     @if(count($errors) > 0 && isset($errors['full_name']))
                         <span>{{ $errors['full_name'][0] }}</span>
@@ -15,9 +18,9 @@
                 </div>
             </div>
             <div>
-                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Gender</label>
+                <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender *</label>
                 <select wire:model="candidate.gender" id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                    <option selected>Gender</option>
+                    <option selected>Select Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                 </select>

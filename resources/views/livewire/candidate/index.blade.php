@@ -28,8 +28,8 @@
 
         <div class="flex items-center justify-end lg:justify-start space-x-2">
             <div>
-                <select wire:model.live="per_page" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline-block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="">Per Page</option>
+                <label for="perPage" class="text-gray-900 dark:text-white">Per Page</label>
+                <select wire:model.live="per_page" id="perPage" class="bg-gray-50 border w-14 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 inline-block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">50</option>
@@ -262,7 +262,7 @@
                             {{ $candidate['full_name'] }}
                         </td>
                         <td class="px-2 py-3 text-center">
-                            {{ $candidate['gender'] }}
+                            {{ $candidate['gender'] == 'M' ? 'Male' : 'Female' }}
                         </td>
                         <td class="px-2 py-3">
                             {{ $candidate['email'] }}

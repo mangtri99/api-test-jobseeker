@@ -17,6 +17,7 @@ class Index extends Component
     public $meta;
     public $links;
 
+    // get data from api
     public function getData()
     {
         $response = Http::client()->withQueryParameters(
@@ -39,11 +40,14 @@ class Index extends Component
         $this->getData();
     }
 
+    // handle filter search
     public function filter()
     {
+        $this->page = 1;
         $this->getData();
     }
 
+    // handle delete data
     public function delete($id)
     {
         $response = Http::client()->delete('/candidate/'. $id);
@@ -54,9 +58,9 @@ class Index extends Component
         } else {
             session()->flash('status', $response->json()['message']);
         }
-        $this->getData();
     }
 
+    // handle sorting table
     public function sortBy($field)
     {
         if($this->sort == $field){
@@ -69,17 +73,21 @@ class Index extends Component
         $this->getData();
     }
 
+    // handle reset filter
     public function resetFilter()
     {
         $this->reset();
         $this->getData();
     }
 
+    // handle on change per page
     public function updatedPerPage()
     {
+        $this->page = 1;
         $this->getData();
     }
 
+    // handle on change pagination
     public function pagination($pageNumber)
     {
         if($pageNumber == 'prev'){
@@ -95,6 +103,6 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.candidate.index');
+        return view('livewire.candidate.index')->title('List of Candidate');
     }
 }

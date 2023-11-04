@@ -1,7 +1,7 @@
 @props(['label'])
 <div>
     <label for="{{$attributes->get('id')}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        {{ $label }}
+        {{ $label }} {{$attributes->has('required') ? '*' : ''}}
     </label>
     <input
         {{ $attributes->merge(['type' => 'text']) }}
