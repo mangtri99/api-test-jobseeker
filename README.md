@@ -17,6 +17,7 @@ After clone this project, simply run
     php artisan migrate --seed
     php artisan serve
 ```
+Access application http://localhost:8000/
 
 Note: You may need to change the base api url configuration in the .env file with the key API_BASE_URL. Please adjust it to your local configuration
 Default is http://localhost:8000/api
