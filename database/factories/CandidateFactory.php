@@ -25,7 +25,7 @@ class CandidateFactory extends Factory
         ];
         return [
             'email' => $this->faker->unique()->safeEmail(),
-            'phone_number' => $this->faker->phoneNumber(),
+            'phone_number' => $this->faker->unique()->e164PhoneNumber(),
             'full_name' => $this->faker->name(),
             'dob' => $this->faker->date(),
             'pob'=> $this->faker->country(),

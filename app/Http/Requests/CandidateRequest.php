@@ -22,12 +22,12 @@ class CandidateRequest extends FormRequest
     public function rules(): array
     {
         $emailRule = 'required|email|unique:t_candidate,email';
-        $phoneRule = 'nullable|unique:t_candidate,phone_number';
+        $phoneRule = 'nullable|string|min:10|max:15|unique:t_candidate,phone_number';
 
         // when update data, ignore unique email and phone number of current candidate
         if(request()->isMethod('PUT')){
             $emailRule = 'required|email|unique:t_candidate,email,'.$this->candidate->candidate_id . ',candidate_id';
-            $phoneRule = 'nullable|unique:t_candidate,phone_number,'.$this->candidate->candidate_id . ',candidate_id';
+            $phoneRule = 'nullable|string|min:10|max:15|unique:t_candidate,phone_number,'.$this->candidate->candidate_id . ',candidate_id';
         }
         return [
             'email' => $emailRule,

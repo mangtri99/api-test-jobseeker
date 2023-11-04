@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\VoltServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,4 +186,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'api_base_url' => env('API_BASE_URL', 'http://localhost:8000/api/'),
 ];

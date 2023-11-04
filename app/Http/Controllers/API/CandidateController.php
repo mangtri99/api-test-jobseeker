@@ -8,6 +8,7 @@ use App\Http\Resources\CandidateResource;
 use App\Models\Candidate;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CandidateController extends Controller
 {
@@ -22,8 +23,9 @@ class CandidateController extends Controller
                 })
                 ->when($request->sort, function ($query) use ($request) {
                     $query->orderBy($request->sort, $request->order ?? 'asc'); // default order is asc
-                })
-                ->paginate($request->per_page ?? 10);
+                }, function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                })->paginate((int) $request->per_page ?? 10);
         return CandidateResource::collection($candidates);
     }
 

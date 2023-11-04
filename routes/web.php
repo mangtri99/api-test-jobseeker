@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Candidate\Index as CandidateIndex;
+use App\Livewire\Candidate\Form as CandidateForm;
+use App\Livewire\Candidate\Detail as CandidateDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('index');
+// })->name('index');
+Route::get('/', CandidateIndex::class)->name('index');
+Route::get('/create', CandidateForm::class)->name('create');
+Route::get('/edit/{id}', CandidateForm::class)->name('edit');
+Route::get('/{id}/detail', CandidateDetail::class)->name('detail');
