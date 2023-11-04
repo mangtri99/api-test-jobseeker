@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CandidateStoreRequest;
+use App\Http\Requests\CandidateRequest;
 use App\Http\Resources\CandidateResource;
 use App\Models\Candidate;
 use Exception;
@@ -23,7 +23,7 @@ class CandidateController extends Controller
                 ->when($request->sort, function ($query) use ($request) {
                     $query->orderBy($request->sort, $request->order ?? 'asc'); // default order is asc
                 })
-                ->paginate();
+                ->paginate($request->per_page ?? 10);
         return CandidateResource::collection($candidates);
     }
 
@@ -38,7 +38,7 @@ class CandidateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CandidateStoreRequest $request)
+    public function store(CandidateRequest $request)
     {
         try {
             $data = $request->validated();
@@ -81,22 +81,11 @@ class CandidateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CandidateRequest $request, Candidate $candidate)
     {
         try {
-            $request->validate([
-                'email' => 'required|email|unique:t_candidate,email,'.$id.',candidate_id',
-                'phone_number' => 'unique:t_candidate,phone_number,'.$id.',candidate_id',
-                'full_name' => 'required|string',
-                'dob' => 'required|date_format:Y-m-d',
-                'pob'=> 'required',
-                'gender' => 'required|in:M,F',
-                'year_exp' => 'required',
-                'last_salary' => 'nullable',
-            ]);
-
-            $candidate = Candidate::findOrFail($id);
-            $candidate->update($request->all());
+            $data = $request->validated();
+            $candidate->update($data);
             return response()->json([
                 'message' => 'Candidate updated successfully',
                 'data' => new CandidateResource($candidate)
