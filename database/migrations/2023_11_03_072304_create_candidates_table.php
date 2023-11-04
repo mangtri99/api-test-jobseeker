@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('year_exp', 5);
             $table->string('last_salary', 100)->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
